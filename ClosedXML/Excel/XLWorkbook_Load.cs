@@ -545,10 +545,10 @@ namespace ClosedXML.Excel
                                                 continue;
 
                                             var cacheField = pivotTableCacheDefinitionPart.PivotCacheDefinition.CacheFields.ElementAt(rf.Index.Value) as CacheField;
-                                            if (pf.Name != null)
-                                                pivotField = pt.RowLabels.Add(pf.Name.Value);
-                                            else if (cacheField.Name != null)
-                                                pivotField = pt.RowLabels.Add(cacheField.Name.Value);
+                                            if (cacheField.Name != null)
+                                                pivotField = pf.Name != null
+                                                    ? pt.RowLabels.Add(cacheField.Name, pf.Name.Value)
+                                                    : pt.RowLabels.Add(cacheField.Name.Value);
                                             else
                                                 continue;
 
@@ -578,10 +578,10 @@ namespace ClosedXML.Excel
                                             continue;
 
                                         var cacheField = pivotTableCacheDefinitionPart.PivotCacheDefinition.CacheFields.ElementAt(cf.Index.Value) as CacheField;
-                                        if (pf.Name != null)
-                                            pivotField = pt.ColumnLabels.Add(pf.Name.Value);
-                                        else if (cacheField.Name != null)
-                                            pivotField = pt.ColumnLabels.Add(cacheField.Name.Value);
+                                        if (cacheField.Name != null)
+                                            pivotField = pf.Name != null
+                                                ? pt.ColumnLabels.Add(cacheField.Name, pf.Name.Value)
+                                                : pt.ColumnLabels.Add(cacheField.Name.Value);
                                         else
                                             continue;
 
