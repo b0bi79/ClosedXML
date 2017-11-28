@@ -765,7 +765,7 @@ namespace ClosedXML.Excel
                                         else
                                             throw new NotImplementedException();
                                     }
-                                    else if (BooleanValue.ToBoolean(pf.MultipleItemSelectionAllowed))
+                                    else if (pf.MultipleItemSelectionAllowed != null && BooleanValue.ToBoolean(pf.MultipleItemSelectionAllowed))
                                     {
                                         foreach (var item in pf.Items.Cast<Item>())
                                         {
