@@ -68,7 +68,7 @@ namespace ClosedXML.Excel
             SetProperties(dSpreadsheet);
 
             SharedStringItem[] sharedStrings = null;
-            if (dSpreadsheet.WorkbookPart.GetPartsOfType<SharedStringTablePart>().Count() > 0)
+            if (dSpreadsheet.WorkbookPart.GetPartsOfType<SharedStringTablePart>().Any())
             {
                 var shareStringPart = dSpreadsheet.WorkbookPart.GetPartsOfType<SharedStringTablePart>().First();
                 sharedStrings = shareStringPart.SharedStringTable.Elements<SharedStringItem>().ToArray();
@@ -765,7 +765,7 @@ namespace ClosedXML.Excel
                                         else
                                             throw new NotImplementedException();
                                     }
-                                    else if (pf.MultipleItemSelectionAllowed != null && BooleanValue.ToBoolean(pf.MultipleItemSelectionAllowed))
+                                    else if (OpenXmlHelper.GetBooleanValueAsBool(pf.MultipleItemSelectionAllowed, false))
                                     {
                                         foreach (var item in pf.Items.Cast<Item>())
                                         {
