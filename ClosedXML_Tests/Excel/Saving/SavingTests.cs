@@ -464,5 +464,43 @@ namespace ClosedXML_Tests.Excel.Saving
                 }
             }
         }
+
+        [Test]
+        public void ClearDateTimeCellTest()
+        {
+            // creating a test file
+            using (var ms = new MemoryStream())
+            {
+                using (var wb = new XLWorkbook())
+                {
+                    var sheet = wb.AddWorksheet("Test");
+                    var cell = sheet.Cell(1, 1);
+                    cell.Value = DateTime.Today;
+                    wb.SaveAs(ms);
+                }
+
+                ms.Position = 0;
+                // reading a test file, clearing a cell, and saving
+                using (var wb = new XLWorkbook(ms))
+                {
+                    var sheet = wb.Worksheet(1);
+                    var cell = sheet.Cell(1, 1);
+                    cell.Clear(XLClearOptions.Contents);
+
+                    Assert.AreEqual(String.Empty, cell.Value);
+                    wb.Save();
+                }
+
+                ms.Position = 0;
+                // ASSERT
+                using (var savedWb = new XLWorkbook(ms))
+                {
+                    var savedSheet = savedWb.Worksheet(1);
+                    var savedCell = savedSheet.Cell(1, 1);
+
+                    Assert.AreEqual(String.Empty, savedCell.Value);
+                }
+            }
+        }
     }
 }

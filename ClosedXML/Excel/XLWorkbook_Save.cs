@@ -5665,6 +5665,10 @@ namespace ClosedXML.Excel
                     cellValue.Text = d.ToInvariantString();
                     openXmlCell.CellValue = cellValue;
                 }
+                else
+                {
+                    openXmlCell.CellValue = null;
+                }
             }
             else
             {
